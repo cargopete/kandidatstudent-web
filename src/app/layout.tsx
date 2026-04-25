@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Кандидат-студент.бг",
-    template: "%s · Кандидат-студент.бг",
+    default: "kandidatstudent.com",
+    template: "%s · kandidatstudent.com",
   },
   description:
-    "Всички акредитирани специалности в българските университети на едно място. Сравни програми, вижи такси и условия за прием.",
+    "Всички акредитирани специалности в 51 български университета на едно място.",
 };
 
 export default function RootLayout({

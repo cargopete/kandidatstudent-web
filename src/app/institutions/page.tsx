@@ -34,7 +34,7 @@ export default async function InstitutionsPage() {
   return (
     <main className="min-h-screen bg-white">
       <nav className="border-b border-gray-100 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="font-semibold text-gray-900 text-lg">кандидат-студент.бг</Link>
+        <Link href="/" className="font-semibold text-gray-900 text-lg">kandidatstudent.com</Link>
         <div className="flex gap-6 text-sm text-gray-600">
           <Link href="/institutions" className="text-gray-900 font-medium">Университети</Link>
           <Link href="/professional-fields" className="hover:text-gray-900">Направления</Link>
