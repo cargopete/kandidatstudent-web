@@ -153,7 +153,7 @@ async function SpecialtyContent({ slug }: { slug: string }) {
                           <span>{FORM_LABELS[p.study_form] ?? p.study_form}</span>
                           {p.tuition_bgn_per_year && (
                             <span className="font-medium text-slate-600">
-                              {Number(p.tuition_bgn_per_year).toLocaleString("bg-BG")} лв.
+                              {Math.round(Number(p.tuition_bgn_per_year) / 1.95583 / 2)} € на семестър
                             </span>
                           )}
                         </div>

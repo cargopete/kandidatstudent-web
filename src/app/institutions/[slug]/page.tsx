@@ -162,7 +162,7 @@ async function InstitutionContent({ slug }: { slug: string }) {
                           </span>
                           {p.tuition_bgn_per_year && (
                             <span className="text-xs font-medium text-slate-700">
-                              {Number(p.tuition_bgn_per_year).toLocaleString("bg-BG")} лв./год.
+                              {Math.round(Number(p.tuition_bgn_per_year) / 1.95583 / 2)} € на семестър
                             </span>
                           )}
                         </div>
