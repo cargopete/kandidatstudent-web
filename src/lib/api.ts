@@ -55,7 +55,7 @@ export type Program = {
 export async function getInstitutions(): Promise<Institution[]> {
   "use cache";
   cacheLife("hours");
-  const res = await fetch(`${API_URL}/api/v1/institutions?limit=100`);
+  const res = await fetch(`${API_URL}/api/v1/institutions?page_size=100`);
   if (!res.ok) return [];
   return res.json();
 }
@@ -71,7 +71,7 @@ export async function getInstitution(slug: string): Promise<Institution | null> 
 export async function getProfessionalFields(): Promise<ProfessionalField[]> {
   "use cache";
   cacheLife("hours");
-  const res = await fetch(`${API_URL}/api/v1/professional-fields?limit=100`);
+  const res = await fetch(`${API_URL}/api/v1/professional-fields`);
   if (!res.ok) return [];
   return res.json();
 }
@@ -79,7 +79,7 @@ export async function getProfessionalFields(): Promise<ProfessionalField[]> {
 export async function getSpecialties(): Promise<Specialty[]> {
   "use cache";
   cacheLife("hours");
-  const res = await fetch(`${API_URL}/api/v1/specialties?limit=200`);
+  const res = await fetch(`${API_URL}/api/v1/specialties?page_size=200`);
   if (!res.ok) return [];
   return res.json();
 }
@@ -94,7 +94,7 @@ export async function getPrograms(params?: {
   const q = new URLSearchParams();
   if (params?.institution_slug) q.set("institution_slug", params.institution_slug);
   if (params?.professional_field_code) q.set("professional_field_code", params.professional_field_code);
-  q.set("limit", String(params?.limit ?? 50));
+  q.set("page_size", String(params?.limit ?? 50));
   const res = await fetch(`${API_URL}/api/v1/programs?${q}`);
   if (!res.ok) return [];
   return res.json();
@@ -109,10 +109,10 @@ export async function getStats(): Promise<{
   "use cache";
   cacheLife("hours");
   const [institutions, fields, specialties, programs] = await Promise.allSettled([
-    fetch(`${API_URL}/api/v1/institutions?limit=1`).then(r => r.headers.get("x-total-count") ?? "51"),
-    fetch(`${API_URL}/api/v1/professional-fields?limit=1`).then(r => r.headers.get("x-total-count") ?? "53"),
-    fetch(`${API_URL}/api/v1/specialties?limit=1`).then(r => r.headers.get("x-total-count") ?? "150"),
-    fetch(`${API_URL}/api/v1/programs?limit=1`).then(r => r.headers.get("x-total-count") ?? "0"),
+    fetch(`${API_URL}/api/v1/institutions?page_size=1`).then(r => r.headers.get("x-total-count") ?? "51"),
+    fetch(`${API_URL}/api/v1/professional-fields`).then(r => r.headers.get("x-total-count") ?? "53"),
+    fetch(`${API_URL}/api/v1/specialties?page_size=1`).then(r => r.headers.get("x-total-count") ?? "150"),
+    fetch(`${API_URL}/api/v1/programs?page_size=1`).then(r => r.headers.get("x-total-count") ?? "0"),
   ]);
   return {
     institutions: Number(institutions.status === "fulfilled" ? institutions.value : 51),
