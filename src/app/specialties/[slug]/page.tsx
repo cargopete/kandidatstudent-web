@@ -125,7 +125,7 @@ async function SpecialtyContent({ slug }: { slug: string }) {
               const instPrograms = byInstitution[instSlug];
               return (
                 <div key={instSlug} className="border border-slate-100 rounded-xl overflow-hidden">
-                  <div className="flex items-center justify-between px-4 py-3 bg-slate-50">
+                  <div className="flex items-center px-4 py-3 bg-slate-50">
                     <Link
                       href={`/institutions/${instSlug}`}
                       className="flex items-center gap-2 group"
@@ -137,32 +137,47 @@ async function SpecialtyContent({ slug }: { slug: string }) {
                         <span className="text-xs text-slate-400">{inst.city}</span>
                       )}
                     </Link>
-                    {inst?.admissions_url && (
-                      <a
-                        href={inst.admissions_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-indigo-500 hover:text-indigo-700 transition-colors shrink-0"
-                      >
-                        Такси →
-                      </a>
-                    )}
                   </div>
                   <div className="divide-y divide-slate-50">
-                    {instPrograms.map((p) => (
+                    {instPrograms.map((p) => {
+                      const programUrl = p.program_page_url ?? inst?.admissions_url ?? null;
+                      const tuitionEur = p.tuition_bgn_per_year != null
+                        ? Math.round(parseFloat(p.tuition_bgn_per_year) / 2 / 1.95583)
+                        : null;
+                      return (
                       <div
                         key={p.id}
-                        className="flex items-center justify-between px-4 py-3 gap-4"
+                        className="flex items-start justify-between px-4 py-3 gap-4"
                       >
                         <div className="text-sm text-slate-700">{p.title_bg}</div>
-                        <div className="shrink-0 flex items-center gap-2 text-xs text-slate-400">
-                          <span className="bg-slate-50 px-2 py-0.5 rounded-md">
-                            {OKS_LABELS[p.oks_level] ?? p.oks_level}
-                          </span>
-                          <span>{FORM_LABELS[p.study_form] ?? p.study_form}</span>
+                        <div className="shrink-0 flex flex-col items-end gap-1">
+                          <div className="flex items-center gap-2 text-xs text-slate-400">
+                            <span className="bg-slate-50 px-2 py-0.5 rounded-md">
+                              {OKS_LABELS[p.oks_level] ?? p.oks_level}
+                            </span>
+                            <span>{FORM_LABELS[p.study_form] ?? p.study_form}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {tuitionEur != null && (
+                              <span className="text-xs text-slate-400">
+                                ~€{tuitionEur}/сем.
+                              </span>
+                            )}
+                            {programUrl && (
+                              <a
+                                href={programUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs text-indigo-500 hover:text-indigo-700 transition-colors"
+                              >
+                                Линк →
+                              </a>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               );

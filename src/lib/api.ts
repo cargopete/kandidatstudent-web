@@ -50,6 +50,7 @@ export type Program = {
   institution_slug: string;
   specialty_slug: string;
   professional_field_code: string;
+  program_page_url: string | null;
 };
 
 export async function getInstitutions(): Promise<Institution[]> {
