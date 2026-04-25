@@ -160,11 +160,6 @@ async function InstitutionContent({ slug }: { slug: string }) {
                           <span className="text-xs text-slate-400">
                             {FORM_LABELS[p.study_form] ?? p.study_form}
                           </span>
-                          {p.tuition_bgn_per_year && (
-                            <span className="text-xs font-medium text-slate-700">
-                              {Math.round(Number(p.tuition_bgn_per_year) / 1.95583 / 2)} € на семестър
-                            </span>
-                          )}
                         </div>
                       </Link>
                     ))}

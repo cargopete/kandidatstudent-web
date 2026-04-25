@@ -125,20 +125,29 @@ async function SpecialtyContent({ slug }: { slug: string }) {
               const instPrograms = byInstitution[instSlug];
               return (
                 <div key={instSlug} className="border border-slate-100 rounded-xl overflow-hidden">
-                  <Link
-                    href={`/institutions/${instSlug}`}
-                    className="flex items-center justify-between px-4 py-3 bg-slate-50 hover:bg-slate-100 transition-colors group"
-                  >
-                    <div>
+                  <div className="flex items-center justify-between px-4 py-3 bg-slate-50">
+                    <Link
+                      href={`/institutions/${instSlug}`}
+                      className="flex items-center gap-2 group"
+                    >
                       <span className="text-sm font-medium text-slate-900 group-hover:text-indigo-600 transition-colors">
                         {inst?.name_bg ?? instSlug}
                       </span>
                       {inst?.city && (
-                        <span className="ml-2 text-xs text-slate-400">{inst.city}</span>
+                        <span className="text-xs text-slate-400">{inst.city}</span>
                       )}
-                    </div>
-                    <span className="text-xs text-slate-400">→</span>
-                  </Link>
+                    </Link>
+                    {inst?.admissions_url && (
+                      <a
+                        href={inst.admissions_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-indigo-500 hover:text-indigo-700 transition-colors shrink-0"
+                      >
+                        Такси →
+                      </a>
+                    )}
+                  </div>
                   <div className="divide-y divide-slate-50">
                     {instPrograms.map((p) => (
                       <div
@@ -151,11 +160,6 @@ async function SpecialtyContent({ slug }: { slug: string }) {
                             {OKS_LABELS[p.oks_level] ?? p.oks_level}
                           </span>
                           <span>{FORM_LABELS[p.study_form] ?? p.study_form}</span>
-                          {p.tuition_bgn_per_year && (
-                            <span className="font-medium text-slate-600">
-                              {Math.round(Number(p.tuition_bgn_per_year) / 1.95583 / 2)} € на семестър
-                            </span>
-                          )}
                         </div>
                       </div>
                     ))}
