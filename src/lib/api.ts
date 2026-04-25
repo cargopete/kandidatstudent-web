@@ -1,4 +1,4 @@
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag } from "next/cache";
 
 const API_URL = process.env.API_URL ?? "http://localhost:8082";
 
@@ -98,7 +98,8 @@ export async function getPrograms(params?: {
   limit?: number;
 }): Promise<Program[]> {
   "use cache";
-  cacheLife("hours");
+  cacheLife("minutes");
+  cacheTag("programs");
   const q = new URLSearchParams();
   if (params?.institution_slug) q.set("institution_slug", params.institution_slug);
   if (params?.professional_field_code) q.set("professional_field_code", params.professional_field_code);
