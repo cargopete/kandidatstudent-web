@@ -27,14 +27,6 @@ export default function InstitutionPage({
 }) {
   return (
     <main className="min-h-screen bg-white">
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100 px-6 py-3 flex items-center justify-between">
-        <Link href="/" className="font-semibold text-slate-900 tracking-tight">kandidatstudent.com</Link>
-        <div className="flex gap-1 text-sm">
-          <Link href="/institutions" className="px-3 py-1.5 rounded-md text-slate-900 font-medium bg-slate-50">Университети</Link>
-          <Link href="/professional-fields" className="px-3 py-1.5 rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-50 transition-colors">Направления</Link>
-        </div>
-      </nav>
-
       <div className="max-w-3xl mx-auto px-6 py-12">
         <Link href="/institutions" className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-slate-700 mb-8 transition-colors">
           ← Всички университети

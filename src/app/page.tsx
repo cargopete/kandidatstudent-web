@@ -15,14 +15,6 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-white">
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100 px-6 py-3 flex items-center justify-between">
-        <span className="font-semibold text-slate-900 tracking-tight">kandidatstudent.com</span>
-        <div className="flex gap-1 text-sm">
-          <Link href="/institutions" className="px-3 py-1.5 rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-50 transition-colors">Университети</Link>
-          <Link href="/professional-fields" className="px-3 py-1.5 rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-50 transition-colors">Направления</Link>
-        </div>
-      </nav>
-
       <section className="px-6 pt-24 pb-20 text-center">
         <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-600 text-xs font-medium px-3 py-1 rounded-full mb-8">
           {institutions.length} акредитирани университета
