@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 
-export const unstable_instant = { prefetch: "static" };
+export const unstable_instant = false;
 
 export async function generateMetadata({
   params,
