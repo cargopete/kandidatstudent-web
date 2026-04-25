@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { getInstitutions, getProfessionalFields } from "@/lib/api";
+import { getInstitutions, getProfessionalFields, getSpecialties } from "@/lib/api";
 
 export const unstable_instant = { prefetch: "static", unstable_disableValidation: true };
 
 export default async function Home() {
-  const [institutions, fields] = await Promise.all([
+  const [institutions, fields, specialties] = await Promise.all([
     getInstitutions(),
     getProfessionalFields(),
+    getSpecialties(),
   ]);
 
   const stateCount = institutions.filter((i) => i.ownership === "state").length;
@@ -52,8 +53,8 @@ export default async function Home() {
             <div className="text-sm text-slate-400 mt-1">направления</div>
           </div>
           <div className="px-6 py-2">
-            <div className="text-3xl font-bold text-slate-900 tabular-nums">52</div>
-            <div className="text-sm text-slate-400 mt-1">области</div>
+            <div className="text-3xl font-bold text-slate-900 tabular-nums">{specialties.length}</div>
+            <div className="text-sm text-slate-400 mt-1">специалности</div>
           </div>
         </div>
       </section>
