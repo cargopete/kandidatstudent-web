@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "52 професионални направления по ПМС 125/2002.",
 };
 
-export const unstable_instant = { prefetch: "static" };
+export const unstable_instant = { prefetch: "static", unstable_disableValidation: true };
 
 export default async function ProfessionalFieldsPage() {
   const fields = await getProfessionalFields();

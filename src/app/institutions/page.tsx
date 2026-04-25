@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Всички акредитирани висши училища в България.",
 };
 
-export const unstable_instant = { prefetch: "static" };
+export const unstable_instant = { prefetch: "static", unstable_disableValidation: true };
 
 const OWNERSHIP_LABELS: Record<string, string> = {
   state: "Държавен",

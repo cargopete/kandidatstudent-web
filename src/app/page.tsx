@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getInstitutions, getProfessionalFields } from "@/lib/api";
 
-export const unstable_instant = { prefetch: "static" };
+export const unstable_instant = { prefetch: "static", unstable_disableValidation: true };
 
 export default async function Home() {
   const [institutions, fields] = await Promise.all([
