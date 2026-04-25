@@ -44,18 +44,18 @@ export default async function Home() {
 
       <section className="py-10 px-6 border-y border-slate-100">
         <div className="max-w-4xl mx-auto grid grid-cols-3 divide-x divide-slate-100 text-center">
-          <div className="px-6 py-2">
-            <div className="text-3xl font-bold text-slate-900 tabular-nums">{institutions.length}</div>
+          <Link href="/institutions" className="px-6 py-2 group hover:bg-slate-50 transition-colors rounded-l-xl">
+            <div className="text-3xl font-bold text-slate-900 tabular-nums group-hover:text-indigo-600 transition-colors">{institutions.length}</div>
             <div className="text-sm text-slate-400 mt-1">университета</div>
-          </div>
-          <div className="px-6 py-2">
-            <div className="text-3xl font-bold text-slate-900 tabular-nums">{fields.length}</div>
+          </Link>
+          <Link href="/professional-fields" className="px-6 py-2 group hover:bg-slate-50 transition-colors">
+            <div className="text-3xl font-bold text-slate-900 tabular-nums group-hover:text-indigo-600 transition-colors">{fields.length}</div>
             <div className="text-sm text-slate-400 mt-1">направления</div>
-          </div>
-          <div className="px-6 py-2">
-            <div className="text-3xl font-bold text-slate-900 tabular-nums">{specialties.length}</div>
+          </Link>
+          <Link href="/specialties" className="px-6 py-2 group hover:bg-slate-50 transition-colors rounded-r-xl">
+            <div className="text-3xl font-bold text-slate-900 tabular-nums group-hover:text-indigo-600 transition-colors">{specialties.length}</div>
             <div className="text-sm text-slate-400 mt-1">специалности</div>
-          </div>
+          </Link>
         </div>
       </section>
 
