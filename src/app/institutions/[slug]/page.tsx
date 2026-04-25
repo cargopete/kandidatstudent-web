@@ -148,9 +148,9 @@ async function InstitutionContent({ slug }: { slug: string }) {
                   </div>
                   <div className="space-y-1.5">
                     {programsByField[code].map((p) => (
-                      <div key={p.id} className="border border-slate-100 rounded-xl p-3.5 flex items-start justify-between gap-4">
+                      <Link key={p.id} href={`/specialties/${p.specialty_slug}`} className="border border-slate-100 rounded-xl p-3.5 flex items-start justify-between gap-4 hover:border-slate-200 hover:shadow-md transition-all group">
                         <div>
-                          <div className="text-sm font-medium text-slate-900">{p.title_bg}</div>
+                          <div className="text-sm font-medium text-slate-900 group-hover:text-indigo-600 transition-colors">{p.title_bg}</div>
                           {p.title_en && <div className="text-xs text-slate-400 mt-0.5">{p.title_en}</div>}
                         </div>
                         <div className="shrink-0 flex flex-col items-end gap-1">
@@ -166,7 +166,7 @@ async function InstitutionContent({ slug }: { slug: string }) {
                             </span>
                           )}
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
