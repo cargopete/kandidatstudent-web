@@ -97,7 +97,8 @@ export async function getPrograms(params?: {
   q.set("page_size", String(params?.limit ?? 50));
   const res = await fetch(`${API_URL}/api/v1/programs?${q}`);
   if (!res.ok) return [];
-  return res.json();
+  const data = await res.json();
+  return data.hits ?? [];
 }
 
 export async function getStats(): Promise<{
