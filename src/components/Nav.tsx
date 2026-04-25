@@ -33,15 +33,15 @@ export default function Nav({ institutions, fields, specialties }: Props) {
 
   const active = (path: string) =>
     pathname === path || pathname.startsWith(path + "/")
-      ? "text-slate-900 font-medium bg-slate-50"
-      : "text-slate-500 hover:text-slate-900 hover:bg-slate-50";
+      ? "text-indigo-700 font-medium bg-indigo-100"
+      : "text-indigo-500 hover:text-indigo-800 hover:bg-indigo-100";
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100 px-6 py-3 flex items-center gap-3">
+      <nav className="sticky top-0 z-50 bg-indigo-50/90 backdrop-blur-sm border-b border-indigo-100 px-6 py-3 flex items-center gap-3">
         <Link
           href="/"
-          className="font-semibold text-slate-900 tracking-tight mr-1 shrink-0"
+          className="font-semibold text-indigo-900 tracking-tight mr-1 shrink-0"
         >
           kandidatstudent.com
         </Link>
@@ -63,7 +63,7 @@ export default function Nav({ institutions, fields, specialties }: Props) {
 
         <button
           onClick={openSearch}
-          className="ml-auto flex items-center gap-2 px-3 py-1.5 text-sm text-slate-400 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg transition-colors"
+          className="ml-auto flex items-center gap-2 px-3 py-1.5 text-sm text-indigo-400 bg-white/70 hover:bg-white border border-indigo-200 rounded-lg transition-colors"
         >
           <svg
             className="w-3.5 h-3.5 shrink-0"
