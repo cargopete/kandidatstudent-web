@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# kandidatstudent-web
 
-## Getting Started
+Frontend for [kandidatstudent.com](https://kandidatstudent.com) — an aggregator of all accredited university programmes in Bulgaria.
 
-First, run the development server:
+## Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 16.2.4 (App Router, PPR) |
+| UI | React 19, Tailwind CSS v4 |
+| Language | TypeScript 5 |
+| Hosting | Vercel |
+| Data | REST API from the [`kandidatstudent`](https://github.com/cargopete/kandidatstudent) backend |
+
+## Architecture
+
+Server-first Next.js app using Partial Prerendering (PPR). All data fetching happens on the server via `src/lib/api.ts`, which calls the Rust backend over HTTP. Pages use `"use cache"` + `cacheLife("hours")` for server-side caching and `<Suspense>` boundaries for streaming.
+
+No client-side state. No auth. No client-side data fetching. The only env var the app needs is `API_URL`.
+
+## Routes
+
+| Route | Description |
+|-------|-------------|
+| `/` | Home — stats, institution grid, fields preview |
+| `/institutions` | All 51 accredited HEIs, grouped by city |
+| `/institutions/[slug]` | Institution detail — info cards + programmes |
+| `/professional-fields` | All 52 professional fields, grouped by area |
+| `/professional-fields/[code]` | Field detail — specialties + universities offering each |
+
+## Local Development
+
+**Prerequisites:** Node.js ≥ 20.9, backend API running locally on port 8082.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+API_URL=http://localhost:8082 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App starts at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Or create `.env.local`:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+API_URL=http://localhost:8082
+```
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `API_URL` | Yes | Base URL of the backend API (no trailing slash) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+In production this is set in Vercel project settings and consumed at build time.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+Pushes to `main` trigger an automatic Vercel deployment.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Manual deploy:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+vercel deploy --prod --yes --scope nbgn
+```
+
+## Data Types
+
+The frontend consumes four types from the backend, defined in `src/lib/api.ts`:
+
+- **`Institution`** — university record (slug, names in BG/EN, city, ownership, URLs)
+- **`ProfessionalField`** — one of 52 fields from ПМС 125/2002 (code, area, names)
+- **`Specialty`** — canonical specialty (linked to a professional field by ID)
+- **`Program`** — a degree offering at a specific institution (OKS level, study form, tuition, funding)
+
+The `/api/v1/programs` endpoint is Meilisearch-backed and returns a paginated envelope:
+```json
+{ "hits": [...], "total": 0, "page": 1, "page_size": 50, "facets": {} }
+```
+All other endpoints return plain JSON arrays.
+
+## Next.js PPR Notes
+
+- Detail pages (`[slug]`, `[code]`) use `unstable_instant = false` to opt out of build-time instant validation — this conflicts with dynamic `generateMetadata` accessing async `params`.
+- List and home pages use `unstable_instant = { prefetch: "static", unstable_disableValidation: true }` to keep prefetching without triggering the validator.
+- The `params` prop in dynamic routes is a `Promise` in Next.js 16 — it must be awaited or passed into a `<Suspense>`-wrapped async component via `params.then(...)`.
