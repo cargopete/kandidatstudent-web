@@ -189,13 +189,10 @@ export default function SearchModal({
               </p>
               {specResults.map((s) => {
                 const field = fieldById.get(s.professional_field_id);
-                const href = field
-                  ? `/professional-fields/${field.code}`
-                  : "/professional-fields";
                 return (
                   <Link
                     key={s.slug}
-                    href={href}
+                    href={`/specialties/${s.slug}`}
                     onClick={handleClose}
                     className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 transition-colors group"
                   >

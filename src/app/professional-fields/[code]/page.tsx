@@ -86,27 +86,32 @@ async function FieldContent({ code }: { code: string }) {
                 .filter((i): i is NonNullable<typeof i> => i != null);
 
               return (
-                <div key={s.slug} className="border border-slate-100 rounded-xl p-4">
-                  <div className="font-medium text-slate-900 text-sm">{s.canonical_name_bg}</div>
+                <Link
+                  key={s.slug}
+                  href={`/specialties/${s.slug}`}
+                  className="block border border-slate-100 rounded-xl p-4 hover:border-slate-200 hover:shadow-md transition-all group"
+                >
+                  <div className="font-medium text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">
+                    {s.canonical_name_bg}
+                  </div>
                   {s.canonical_name_en && (
                     <div className="text-xs text-slate-400 mt-0.5">{s.canonical_name_en}</div>
                   )}
                   {offeredBy.length > 0 ? (
                     <div className="flex flex-wrap gap-1.5 mt-3">
                       {offeredBy.map((inst) => (
-                        <Link
+                        <span
                           key={inst.slug}
-                          href={`/institutions/${inst.slug}`}
-                          className="text-xs bg-slate-50 text-slate-600 px-2 py-1 rounded-md hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+                          className="text-xs bg-slate-50 text-slate-600 px-2 py-1 rounded-md"
                         >
                           {inst.short_name_bg}
-                        </Link>
+                        </span>
                       ))}
                     </div>
                   ) : (
                     <p className="text-xs text-slate-300 mt-3">Няма добавени университети все още</p>
                   )}
-                </div>
+                </Link>
               );
             })}
           </div>

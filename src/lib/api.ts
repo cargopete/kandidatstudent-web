@@ -76,6 +76,14 @@ export async function getProfessionalFields(): Promise<ProfessionalField[]> {
   return res.json();
 }
 
+export async function getSpecialty(slug: string): Promise<Specialty | null> {
+  "use cache";
+  cacheLife("hours");
+  const res = await fetch(`${API_URL}/api/v1/specialties/${slug}`);
+  if (!res.ok) return null;
+  return res.json();
+}
+
 export async function getSpecialties(): Promise<Specialty[]> {
   "use cache";
   cacheLife("hours");
